@@ -24,14 +24,15 @@ def caesar_shift(direction, text, shift):
 
 
 while True:
-    direction = input("Type 'encode' to encrypt, type 'decode' to decrypt, type 'exit' to exit :\n")
-    text = input("Type your message:\n").lower()
-    shift = int(input("Type the shift number:\n"))
+    direction_input = input("Type 'encode' to encrypt, type 'decode' to decrypt, type 'exit' to exit :\n")
+    text_input = input("Type your message:\n").lower()
+    shift_input = int(input("Type the shift number:\n"))
 
-    caesar_shift(direction=direction, text=text, shift=shift)
-
-    if direction == "exit":
+    if direction_input == "exit":
         break
+    else:
+        caesar_shift(direction=direction_input, text=text_input, shift=shift_input)
+
 
 
 

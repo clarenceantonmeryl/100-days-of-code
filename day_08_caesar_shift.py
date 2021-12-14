@@ -10,7 +10,7 @@ def character_shifter(shift, character):
 
 def caesar_shift(direction, text, shift):
     if direction == "d":
-        shift = shift * -1
+        shift *= -1
     output = ""
     for char in text:
         if char.isalpha():

@@ -324,7 +324,7 @@ def display(first, second):
     print(f"B: {second['name']}: {second['description']} from {second['country']}")
 
 
-def check_answer(first_followers, second_followers, guess):
+def validate_answer(first_followers, second_followers, guess):
     if first_followers > second_followers:
         return guess == "a"
     else:
@@ -342,7 +342,7 @@ def play():
     display(first_person, second_person)
     guess = input("Enter guess (A or B): ").lower()
 
-    answer = check_answer(first_person['follower_count'], second_person['follower_count'], guess)
+    answer = validate_answer(first_person['follower_count'], second_person['follower_count'], guess)
 
     if answer:
         clear_screen()

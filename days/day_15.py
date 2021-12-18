@@ -36,7 +36,10 @@ resources = {
 
 
 def display_report():
-    print(f"Water: {resources['water']} mL\nMilk: {resources['milk']} mL\nCoffee: {resources['coffee']}\nMoney: ${resources['money']}")
+    print(f"Water: {resources['water']} mL \n"
+          f"Milk: {resources['milk']} mL \n"
+          f"Coffee: {resources['coffee']} g \n"
+          f"Money: ${resources['money']}")
 
 
 def make_coffee(coffee_choice):
@@ -49,32 +52,19 @@ def make_coffee(coffee_choice):
 
 
 def check_water(coffee_choice):
-    if resources['water'] >= MENU[coffee_choice]['ingredients']['water']:
-        return True
-    else:
-        return False
+    return resources['water'] >= MENU[coffee_choice]['ingredients']['water']
 
 
 def check_milk(coffee_choice):
-    if resources['milk'] >= MENU[coffee_choice]['ingredients']['milk']:
-        return True
-    else:
-        return False
+    return resources['milk'] >= MENU[coffee_choice]['ingredients']['milk']
 
 
 def check_coffee(coffee_choice):
-    if resources['water'] >= MENU[coffee_choice]['ingredients']['coffee']:
-        return True
-    else:
-        return False
+    return resources['water'] >= MENU[coffee_choice]['ingredients']['coffee']
 
 
 def check_resources(coffee_choice):
-
-    if check_coffee(coffee_choice) and check_milk(coffee_choice) and check_water(coffee_choice):
-        return True
-    else:
-        return False
+    return check_coffee(coffee_choice) and check_milk(coffee_choice) and check_water(coffee_choice)
 
 
 def process_coins():
@@ -83,9 +73,10 @@ def process_coins():
     nickel_amount = int(input("How many nickels do you pay: "))
     cent_amount = int(input("How many cents do you pay: "))
 
-    total_amount = round((0.25 * quarter_amount) + (0.1 * dime_amount) + (0.05 * nickel_amount) + (0.01 * cent_amount), 2)
-
-#    print(total_amount)
+    total_amount = round((0.25 * quarter_amount) +
+                         (0.1 * dime_amount) +
+                         (0.05 * nickel_amount) +
+                         (0.01 * cent_amount), 2)
 
     return total_amount
 
@@ -94,13 +85,13 @@ def transaction(coffee_choice, paid_amount):
 
     resources_available = check_resources(coffee_choice)
 
-    if MENU[coffee_choice]['cost'] > paid_amount or not resources_available:
-        if not resources_available:
-            print("Not enough resources available. Cannot make coffee")
-        else:
-            print("You do not have enough money. Cannot make coffee")
+    if MENU[coffee_choice]['cost'] > paid_amount:
+        print("You do not have enough money. Cannot make coffee")
 
-    elif resources_available:
+    elif not resources_available:
+        print("Not enough resources available. Cannot make coffee")
+
+    else:
         if round(paid_amount - MENU[coffee_choice]['cost'], 2) > 0:
             print(f"Here is ${round(paid_amount - MENU[coffee_choice]['cost'], 2)} in change")
 
@@ -114,10 +105,6 @@ def coffee_machine():
 
     if coffee_choice_input == "espresso" or coffee_choice_input == "latte" or coffee_choice_input == "cappuccino":
         money_paid = process_coins()
-        check_water(coffee_choice_input)
-        check_milk(coffee_choice_input)
-        check_coffee(coffee_choice_input)
-        check_resources(coffee_choice_input)
         transaction(coffee_choice_input, money_paid)
     elif coffee_choice_input == "r":
         display_report()

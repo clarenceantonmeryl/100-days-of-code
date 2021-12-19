@@ -1,13 +1,5 @@
-from os import system, name
+from utils.clear_screen import clear_screen
 import random
-
-
-def clear_screen():
-    if name == 'nt':
-        _ = system('cls')
-    else:
-        _ = system('clear')
-
 
 clear_screen()
 

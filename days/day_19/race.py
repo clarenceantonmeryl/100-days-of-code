@@ -1,3 +1,2 @@
 class Race:
-
     pass

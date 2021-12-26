@@ -34,7 +34,7 @@ class Snake:
     def setup(self):
         x = 0
         y = 0
-        for _ in range(self.length):
+        for _ in range(3):
             self.turtles.append(setup_snake_body(x, y))
             x -= DISTANCE
 
@@ -80,3 +80,11 @@ class Snake:
         if self.angle != UP:
             self.angle = DOWN
             self.change_direction()
+
+    def reset_snake(self):
+        for turtle in self.turtles:
+            turtle.goto(1200, 1200)
+        self.turtles.clear()
+        self.setup()
+        self.head = self.turtles[0]
+

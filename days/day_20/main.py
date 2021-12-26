@@ -42,7 +42,8 @@ def game():
             food.go_to_position()
             snake.length += 1
             scoreboard.undo()
-            scoreboard.display_score(snake.length - 3)
+            scoreboard.score += 1
+            scoreboard.display_score()
             snake.add_length()
             snake.add_length()
 
@@ -51,8 +52,10 @@ def game():
 
     while is_game_over:
         screen.update()
-        scoreboard.undo()
-        scoreboard.write(f"GAME OVER. YOUR SCORE WAS {snake.length -3}", align="center",  font=('Courier', 24, 'normal'))
+        scoreboard.reset_score_board()
+        snake.reset_snake()
+        is_game_on = True
+        game()
 
 
 def stop():
@@ -68,7 +71,7 @@ screen.onkey(key="Right", fun=snake.turn_right)
 screen.onkey(key="Left", fun=snake.turn_left)
 screen.onkey(key="x", fun=stop)
 
-scoreboard.display_score(snake.length - 3)
+scoreboard.display_score()
 
 game()
 

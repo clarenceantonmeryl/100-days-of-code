@@ -141,7 +141,7 @@ word_list = [
 'queue',
 'quips',
 'quixotic',
-'quiz',
+'us_states_quiz',
 'quizzes',
 'quorum',
 'razzmatazz',

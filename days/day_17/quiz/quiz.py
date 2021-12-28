@@ -1,5 +1,5 @@
-from day_17_data import question_data
-from day_17_question import Question
+from data import question_data
+from question import Question
 
 
 class Quiz:

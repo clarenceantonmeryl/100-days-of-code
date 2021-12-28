@@ -43,7 +43,7 @@
 # anton.report()
 # mohana.report()
 
-from day_17_quiz import Quiz
+from quiz import Quiz
 
 quiz = Quiz()
 

@@ -1,5 +1,7 @@
 import random
 from tkinter import *
+from tkinter import messagebox
+import pyperclip
 
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
            'v','w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
@@ -7,45 +9,64 @@ LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
 NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 SYMBOLS = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-NUMBER_OF_LETTERS = 5
-NUMBER_OF_SYMBOLS = 5
-NUMBER_OF_NUMBERS = 5
+NUMBER_OF_LETTERS = random.randint(8, 10)
+NUMBER_OF_SYMBOLS = random.randint(2, 4)
+NUMBER_OF_NUMBERS = random.randint(2, 4)
 
 FONT = ("Arial", 18, "normal")
 
 
 def generate_password():
 
+    letters = [random.choice(LETTERS) for _ in range(NUMBER_OF_LETTERS)]
+    numbers = [random.choice(NUMBERS) for _ in range(NUMBER_OF_NUMBERS)]
+    symbols = [random.choice(SYMBOLS) for _ in range(NUMBER_OF_SYMBOLS)]
+
     password = []
 
-    for _ in range(1, NUMBER_OF_LETTERS + 1):
-        password.append(random.choice(LETTERS))
-
-    for _ in range(1, NUMBER_OF_NUMBERS + 1):
-        password.append(random.choice(NUMBERS))
-
-    for _ in range(1, NUMBER_OF_SYMBOLS + 1):
-        password.append(random.choice(SYMBOLS))
+    password.extend(letters)
+    password.extend(numbers)
+    password.extend(symbols)
 
     random.shuffle(password)
 
-    password_final = ""
-
-    for obj in password:
-        password_final += obj
+    password_final = "".join(password)
 
     entry_password.delete(0, END)
     entry_password.insert(END, password_final)
+    pyperclip.copy(password_final)
 
 
 def get_data():
 
-    with open(file="data.txt", mode="a") as data_file:
-        data_file.write(f"{entry_website.get()} | {entry_email.get()} | {entry_password.get()}\n")
+    email = entry_email.get()
+    password = entry_password.get()
+    website = entry_website.get()
 
-    entry_website.delete(0, END)
-    entry_password.delete(0, END)
-    entry_website.focus()
+    if len(website) < 1:
+        messagebox.showinfo(title="Invalid website", message="Enter a valid website")
+
+    elif len(email) < 5:
+        messagebox.showinfo(title="Invalid email", message="Enter a valid email")
+
+    elif len(password) < 8:
+        messagebox.showinfo(title="Invalid password", message="Enter a valid password")
+
+    else:
+
+        is_ok = messagebox.askokcancel(
+            title=website,
+            message=f"These are the details entered:"
+                    f"\nEmail: {email}"
+                    f"\nPassword: {password}"
+                    f"\nIs it ok to save these details?")
+        if is_ok:
+            with open(file="data.txt", mode="a") as data_file:
+                data_file.write(f"{website} | {email} | {password}\n")
+
+            entry_website.delete(0, END)
+            entry_password.delete(0, END)
+            entry_website.focus()
 
 
 window = Tk()

@@ -9,7 +9,7 @@ class Scoreboard(Turtle):
         self.color("white")
         self.hideturtle()
         self.goto(0, 430)
-        with open("../../../data/highscore.txt") as highscore:
+        with open("../../../../data/highscore.txt") as highscore:
             self.high_score = int(highscore.read())
         self.score = 0
 
@@ -23,7 +23,7 @@ class Scoreboard(Turtle):
     def reset_score_board(self):
         if self.score > self.high_score:
             self.high_score = self.score
-            with open(file="../../../data/highscore.txt", mode="w") as highscore:
+            with open(file="../../../../data/highscore.txt", mode="w") as highscore:
                 highscore.write(str(self.high_score))
         self.score = 0
         self.clear()

@@ -1,8 +1,9 @@
-#Password Generator Project
 import random
 from tkinter import *
 
-LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+           'v','w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+           'R','S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 SYMBOLS = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
@@ -10,11 +11,7 @@ NUMBER_OF_LETTERS = 5
 NUMBER_OF_SYMBOLS = 5
 NUMBER_OF_NUMBERS = 5
 
-FONT = ("Arial", 21, "normal")
-
-# nr_letters= int(input("How many letters would you like in your password?\n"))
-# nr_symbols = int(input(f"How many symbols would you like?\n"))
-# nr_numbers = int(input(f"How many numbers would you like?\n"))
+FONT = ("Arial", 18, "normal")
 
 
 def generate_password():
@@ -37,7 +34,18 @@ def generate_password():
     for obj in password:
         password_final += obj
 
-    return password_final
+    entry_password.delete(0, END)
+    entry_password.insert(END, password_final)
+
+
+def get_data():
+
+    with open(file="data.txt", mode="a") as data_file:
+        data_file.write(f"{entry_website.get()} | {entry_email.get()} | {entry_password.get()}\n")
+
+    entry_website.delete(0, END)
+    entry_password.delete(0, END)
+    entry_website.focus()
 
 
 window = Tk()
@@ -61,23 +69,23 @@ label_password = Label(text="Password:", highlightthickness=0, font=FONT)
 label_password.grid(row=3, column=0)
 
 # Entries
-entry_website = Entry()
+entry_website = Entry(width=39)
+entry_website.focus()
 entry_website.grid(row=1, column=1, columnspan=2)
 
-entry_email = Entry()
+entry_email = Entry(width=39)
+entry_email.insert(END, "a@b.com")
 entry_email.grid(row=2, column=1, columnspan=2)
 
-entry_password = Entry()
+entry_password = Entry(width=21)
 entry_password.grid(row=3, column=1, columnspan=1)
 
 
 # Buttons
-button_generate = Button(text="Generate Password")
+button_generate = Button(text="Generate Password", width=14, command=generate_password)
 button_generate.grid(row=3, column=2, columnspan=1)
 
-button_reset = Button(text="Add")
-button_reset.grid(row=4, column=1, columnspan=2)
+button_add = Button(text="Add", width=36, command=get_data)
+button_add.grid(row=4, column=1, columnspan=2)
 
 window.mainloop()
-
-

@@ -2,6 +2,7 @@ import random
 from tkinter import *
 from tkinter import messagebox
 import pyperclip
+import json
 
 LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
            'v','w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
@@ -42,6 +43,12 @@ def get_data():
     email = entry_email.get()
     password = entry_password.get()
     website = entry_website.get()
+    new_data = {
+        website: {
+            "email": email,
+            "password": password
+        }
+    }
 
     if len(website) < 1:
         messagebox.showinfo(title="Invalid website", message="Enter a valid website")
@@ -61,12 +68,42 @@ def get_data():
                     f"\nPassword: {password}"
                     f"\nIs it ok to save these details?")
         if is_ok:
-            with open(file="data.txt", mode="a") as data_file:
-                data_file.write(f"{website} | {email} | {password}\n")
+            data = None
+            try:
+                with open(file="data.json", mode="r") as data_file:
+                    data = json.load(data_file)
+                    data.update(new_data)
+            except FileNotFoundError:
+                data = new_data
+            finally:
+                with open(file="data.json", mode="w") as data_file:
+                    json.dump(data, data_file, indent=4)
 
             entry_website.delete(0, END)
             entry_password.delete(0, END)
             entry_website.focus()
+
+
+def search():
+    website = entry_website.get()
+
+    try:
+        with open(file="data.json", mode="r") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="Website not found")
+        entry_password.delete(0, END)
+    else:
+        if website in data:
+            email = data[website]['email']
+            password = data[website]['password']
+
+            entry_email.delete(0, END)
+            entry_password.delete(0, END)
+            entry_email.insert(0, email)
+            entry_password.insert(0, password)
+        else:
+            messagebox.showinfo(title="Error", message="Website not found")
 
 
 window = Tk()
@@ -90,9 +127,9 @@ label_password = Label(text="Password:", highlightthickness=0, font=FONT)
 label_password.grid(row=3, column=0)
 
 # Entries
-entry_website = Entry(width=39)
+entry_website = Entry(width=21)
 entry_website.focus()
-entry_website.grid(row=1, column=1, columnspan=2)
+entry_website.grid(row=1, column=1, columnspan=1)
 
 entry_email = Entry(width=39)
 entry_email.insert(END, "a@b.com")
@@ -105,6 +142,9 @@ entry_password.grid(row=3, column=1, columnspan=1)
 # Buttons
 button_generate = Button(text="Generate Password", width=14, command=generate_password)
 button_generate.grid(row=3, column=2, columnspan=1)
+
+button_search = Button(text="Search", width=14, command=search)
+button_search.grid(row=1, column=2)
 
 button_add = Button(text="Add", width=36, command=get_data)
 button_add.grid(row=4, column=1, columnspan=2)

@@ -15,7 +15,7 @@ AV_URL = "https://www.alphavantage.co/query"
 NEWS_API_KEY = "6e10c6d5c23f42d583c87a9121b3c41b"
 
 NEWS_API_PARAMETERS = {
-    "q": STOCK,
+    "qInTitle": STOCK,
     "apiKey": NEWS_API_KEY
 }
 
@@ -36,6 +36,9 @@ def get_response(url, params):
 
 
 def send_message(body):
+    print(body)
+
+    """
     client = Client(account_sid, auth_token)
 
     message = client.messages \
@@ -46,6 +49,7 @@ def send_message(body):
     )
 
     print(message.sid)
+    """
 
 
 def get_stock_data():

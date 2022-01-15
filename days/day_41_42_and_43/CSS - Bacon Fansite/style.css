@@ -1,0 +1,52 @@
+
+/*Tag selectors*/
+body {
+    background-color: antiquewhite;
+}
+
+h1 {
+    color: red;
+    font-size: 200px;
+}
+
+h1:hover {
+    color: orange;
+}
+
+/*Class selectors*/
+
+img.vegetable {
+    background-color: red;
+}
+
+img.vegetable:hover {
+    background-color: coral;
+    cursor: pointer;
+}
+
+
+img.meat {
+    background-color: green;
+}
+
+p.meat {
+    background-color: green;
+}
+
+p.meat:hover {
+    background-color: darkgoldenrod;
+}
+
+
+h1#heading_1 {
+    font-style: oblique;
+    font-family: Montserrat, serif;
+}
+
+.coral {
+    color: coral;
+    border-color: coral;
+    border-style: solid;
+    border-width: 1px;
+}
+

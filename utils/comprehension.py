@@ -23,3 +23,19 @@ mytrippler = myfunc(3)
 
 print(mydoubler(11))
 print(mytrippler(11))
+
+
+def display_grade(grade: str) -> int:
+    match grade:
+        case "A":
+            return 1
+        case "B":
+            return 2
+        case "C":
+            return 3
+        case _:
+            return 0
+
+
+display_grade("F")
+

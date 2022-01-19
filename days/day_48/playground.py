@@ -87,3 +87,72 @@ while True:
 
 
 driver.quit()
+
+
+
+
+
+
+'''
+
+
+
+count = driver.find_element(By.XPATH, '//*[@id="articlecount"]/a[1]')
+print(count.text)
+
+# count.click()
+
+all_portals = driver.find_element(By.LINK_TEXT, "All portals")
+# all_portals.click()
+
+search_bar = driver.find_element(By.NAME, "search")
+search_bar.send_keys("Python")
+search_bar.send_keys(Keys.ENTER)
+
+
+
+times_list = []
+
+times = driver.find_elements(By.CSS_SELECTOR, "div.event-widget li time")
+# times = driver.find_elements(By.XPATH, '//*[@id="content"]/div/section/div[2]/div[2]/div/ul/li/time')
+for time in times:
+    times_list.append(time.text)
+
+events_list = []
+
+events = driver.find_elements(By.CSS_SELECTOR, "div.event-widget li a")
+# events = driver.find_elements(By.XPATH, '//*[@id="content"]/div/section/div[2]/div[2]/div/ul/li/a')
+for event in events:
+    events_list.append(event.text)
+
+event_dictionary = {
+    index: {
+        "time": times_list[index],
+        "event": events_list[index]
+    } for index in range(len(times_list))
+}
+
+print(event_dictionary)
+'''
+
+
+
+
+
+
+# price = driver.find_element(By.NAME, "q")
+# print(price.tag_name)
+# print(price.get_attribute("placeholder"))
+#
+# logo = driver.find_element(By.CLASS_NAME, "python-logo")
+# print(logo.size)
+#
+# link = driver.find_element(By.CSS_SELECTOR, "div.documentation-widget p a")
+# print(link.text)
+# print(link.get_attribute("href"))
+
+# price = driver.find_element(By.XPATH, '//*[@id="priceblock_ourprice"]')
+# print(price.text)
+
+# driver.get("https://orteil.dashnet.org/cookieclicker/")
+# //*[@id="content"]/div/section/div[2]/div[2]/div/ul/li[1]/time

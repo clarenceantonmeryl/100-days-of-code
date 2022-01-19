@@ -17,12 +17,7 @@ driver = webdriver.Chrome(service=service)
 driver.get(WEBSITE_URL)
 
 five_sec = time.time() + 5
-five_min = time.time() + (5 * 60)  # 5minutes
-
-# upgrade_dict = {
-#     15: "buyCursor",
-#     100: "buyGrandma"
-# }
+five_min = time.time() + (9 * 60)  # 5minutes
 
 
 def get_upgrades():
@@ -55,11 +50,12 @@ while True:
 
     if time.time() > five_sec:
         amount = int(money.text.replace(",", ""))
-        print("Buy upgrades")
         affordable_upgrades = [upgrades[upgrade] for upgrade in upgrades.keys() if amount >= upgrade]
         print(affordable_upgrades)
+
         # purchase = driver.find_element(By.ID, affordable_upgrades[-1])
         purchase = driver.find_element(By.ID, random.choice(affordable_upgrades))
+
         purchase.click()
         five_sec = time.time() + 5
 
@@ -67,4 +63,4 @@ while True:
         break
 
 
-driver.quit()
+# driver.quit()

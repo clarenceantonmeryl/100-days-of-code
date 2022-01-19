@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 import time
 
 
-CHROME_DRIVER_PATH = "../../lib/chrome/chromedriver"
+CHROME_DRIVER_PATH = "../../../lib/chrome/chromedriver"
 
 service = Service(CHROME_DRIVER_PATH)
 driver = webdriver.Chrome(service=service)

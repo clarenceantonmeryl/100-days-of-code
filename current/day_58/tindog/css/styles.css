@@ -42,12 +42,12 @@ h1 {
     padding: 0 18px;
 }
 
-.fas {
+.feature-icon {
     color: #ef8192;
     font-size: 3rem;
 }
 
-.fas:hover {
+.feature-icon:hover {
     color: #ff4c68;
 }
 
@@ -58,6 +58,30 @@ h1 {
 .logo {
     width: 15%;
     margin: 20px 20px 50px;
+}
+
+@media screen and (max-width: 992px) {
+    #phone-image {
+        position: static;
+        transform: rotate(0deg);
+    }
+
+    #title {
+        text-align: center;
+    }
+}
+
+#cta {
+    background-color: #ff4c68;
+    text-align: center;
+    font-family: 'Montserrat-Black', sans-serif;
+    color: white;
+    size: 15em;
+    line-height: 1.5;
+}
+
+#footer {
+    text-align: center;
 }
 
 /*#title .container-fluid {*/
